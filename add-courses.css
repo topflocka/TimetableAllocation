@@ -1,0 +1,106 @@
+body { 
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    line-height: 2;
+}
+
+.modal {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.modal-content {
+    position: absolute;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: stretch; */
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.modal-content > div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.modal-content > div:nth-child(2) {
+    /* align-items: flex-end; */
+    align-self: flex-end;
+}
+
+.modal-content > div:first-child p {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.modal-content input {
+    border-radius: 10px;
+    border: none;
+    border: 2px solid black;
+    padding: 0px 10px;
+}
+
+.cancel-btn {
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.add-course-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+body > p:first-child {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-top: 20px
+}
+
+.course-upload {
+    font-size: 1.2em;
+    color: white;
+    padding: 5px 9px;
+    border-radius: 5px;
+    background-color: black;
+}
+
+.course-upload input[type="file"] {
+    display: none;
+}
+
+
+#courses {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

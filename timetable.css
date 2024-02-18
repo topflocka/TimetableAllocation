@@ -1,0 +1,33 @@
+body { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    line-height: 2;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.vertical-text {
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+}
+
+td {
+    width: 100px;
+    text-align: center;
+}
+
+.days > * {
+    width: 50px
+}
