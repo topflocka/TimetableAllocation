@@ -16,7 +16,6 @@
 //     baseUrl: "../src/",
 // });
 
-
 // require(["csp", "Hash", "Set"], function (csp, Hash, Set) {
 //     function noOverlapConstraint(...args) {
 //         // Ensure no overlap by checking if any two courses have the same time slot
@@ -42,22 +41,47 @@
 //     console.log(solutionIterator.value)
 // });
 
-import Problem from "./csp-solver";
+// import Problem from "./csp-solver";
 
-// Example usage:
-const cspSolver = new Problem();
+// // Example usage:
+// const cspSolver = new Problem();
 
-// Define variables and their domains
-cspSolver.addVariable("x", [1, 2, 3]);
-cspSolver.addVariable("y", [4, 5, 6]);
+// // Define variables and their domains
+// cspSolver.addVariable("x", [1, 2, 3]);
+// cspSolver.addVariable("y", [4, 5, 6]);
 
-// Define a constraint function
-function constraintFunction(x, y) {
-  return x + y <= 8;
-}
+// // Define a constraint function
+// function constraintFunction(x, y) {
+//   return x + y <= 8;
+// }
 
-// Add the constraint to the CSP
-cspSolver.addConstraint(constraintFunction, ["x", "y"]);
+// // Add the constraint to the CSP
+// cspSolver.addConstraint(constraintFunction, ["x", "y"]);
 
-// Solve the CSP
-console.log(cspSolver.solve());
+// // Solve the CSP
+// console.log(cspSolver.solve());
+
+const params = new URLSearchParams(window.location.search);
+const encodedData = params.get("data");
+
+fetch(`http://127.0.0.1:5000/get-timetable?data=${encodedData}`)
+    .then((response) => {
+        return response.json();
+    })
+    .then((data) => {
+		console.log(data)
+        for (const [courseName, schedules] of Object.entries(data)) {
+            for (const schedule of schedules) {
+                const dayRow =
+                    document.getElementsByTagName("tbody")[0].children[
+                        4 + schedule[0]
+                    ];
+                const day = dayRow.children[1 + schedule[1]];
+                day.textContent = courseName;
+
+            }
+        }
+    }).catch((error) => {
+
+		console.log("error")
+	});

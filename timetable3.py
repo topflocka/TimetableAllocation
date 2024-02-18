@@ -54,6 +54,23 @@ def break_or_next_course_constraint(course1, course2, break_period):
 # for i, (course1, course2) in enumerate(zip(courses, courses[1:])):
 #     problem.addConstraint(break_or_next_course_constraint, [course1 + str(courses[course1] - 1), course2 + '0', 'break' + str(i)])
 
+def evenly_distribute_courses(*args):
+        bins = {i: 0 for i in range(5)}
+
+        for course_slot in args:
+            bins[course_slot // 9] += 1
+
+        # print(bins)
+            # Check if the difference in counts between days is within a tolerance
+        tolerance = 1  # You may adjust this tolerance value as needed
+        min_count = min(bins.values())
+        max_count = max(bins.values())
+        # print(max_count)
+        # print(min_count)
+        return max_count - min_count <= tolerance
+
+problem.addConstraint(evenly_distribute_courses, [*courses])
+
 for course in course_details.keys():
     # for i in range(courses[course] - 1): # number of hours
     for i in range(2): # number of hours
