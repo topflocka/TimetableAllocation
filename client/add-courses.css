@@ -4,6 +4,9 @@ body {
     align-items: center;
     flex-direction: column;
     height: 100vh;
+    background-color: #f4f4f4;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.02em;
 }
 
 * {
@@ -11,6 +14,15 @@ body {
     margin: 0;
     box-sizing: border-box;
     line-height: 2;
+}
+
+main {
+    /* align-self: flex-start; */
+    max-width: 800px;
+    display: flex;
+    width: 100%;
+    /* flex: 1; */
+    flex-direction: column;
 }
 
 .modal {
@@ -80,18 +92,42 @@ body {
     display: none;
 }
 
-body > p:first-child {
-    font-weight: bold;
-    font-size: 1.5em;
+main > p:first-child {
+    align-self: flex-start;
+    /* font-weight: bold; */
+    font-size: 1.2em;
     margin-top: 20px
 }
 
 .course-upload {
-    font-size: 1.2em;
     color: white;
-    padding: 5px 9px;
+    padding: 0 9px;
     border-radius: 5px;
+    border: none;
+    background-color: rgb(133, 133, 133);
+}
+
+.open-modal-button {
+    padding: 0 9px;
+    font-size: inherit;
+    border-radius: 5px;
+    color: white;
     background-color: black;
+
+    border: none;
+}
+
+.course-upload:hover, .open-modal-button:hover {
+    opacity: 0.8;
+}
+
+.course-upload:active, .open-modal-button:active {
+    opacity: 1;
+}
+
+main div:first-of-type {
+    display: flex;
+    gap: 10px
 }
 
 .course-upload input[type="file"] {
@@ -102,5 +138,47 @@ body > p:first-child {
 #courses {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    margin-top: 20px;
+    gap: 15px;
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+#courses > * {
+    text-align: center;
+    /* width: 100%; */
+    /* align-self: center; */
+    border-bottom: 1px solid grey;
+}
+
+#empty-courses {
+    font-size: 2em;
+    text-align: center;
+    color: rgb(133, 133, 133)
+}
+
+.nav {
+    width: 100%;
+    padding: 5px 0;
+    /* border-bottom: 1px solid #000; */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.nav p {
+    text-align: center;
+    line-height: 2;
+    font-weight: bold;
+    font-size: 1.6em;
+}
+
+#next-page {
+    align-self: flex-end;
+    padding: 7px 20px;
+    font-size: inherit;
+    border-radius: 5px;
+    color: white;
+    background-color: black;
+
+    border: none;
 }

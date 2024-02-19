@@ -41,6 +41,7 @@ courseListButton.addEventListener("change", function (e) {
         try {
             const json = JSON.parse(event.target.result);
             console.log("Parsed JSON:", json);
+
             displayCourses(json);
             // Do something with the parsed JSON data
         } catch (error) {
@@ -53,6 +54,8 @@ courseListButton.addEventListener("change", function (e) {
 });
 
 function addCourse(courseName) {
+    const emptyPlaceholder = document.getElementById("empty-courses");
+    emptyPlaceholder.classList.add("hidden")
     const courses = document.getElementById("courses");
     const paragraph = document.createElement("p");
     paragraph.innerText = courseName;
@@ -61,6 +64,9 @@ function addCourse(courseName) {
 }
 
 function displayCourses(courses) {
+    const coursesNode = document.getElementById("courses");
+    coursesNode.innerHtml = ""
+
     for (const course of courses) {
         addCourse(course);   
     }

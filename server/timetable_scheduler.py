@@ -32,8 +32,12 @@ def get_timetable():
     for course in courseNames:
         for i in range(max_course_hours):
             courses.append(course + "_" + str(i))
-            problem.addVariable(course + "_" + str(i), time_slots)
-
+    
+    num_courses_in_a_day = len(courses) // num_days + 1
+    for i in range(num_days):
+        print(courses[i*num_courses_in_a_day:i*num_courses_in_a_day+num_courses_in_a_day])
+        problem.addVariables(courses[i*num_courses_in_a_day:i*num_courses_in_a_day+num_courses_in_a_day], range(i*num_time_periods + num_time_periods - 1, i*num_time_periods - 1, -1))
+    print(courses[num_days*num_courses_in_a_day:])
     breaks = []
     for i in range(len(time_slots) - len(courses)):  # One less break than the number of courses
         breaks.append("break" + "_" + str(i))
@@ -83,7 +87,7 @@ def get_timetable():
     # courses_per_day = len(courses) // num_time_periods
 
     # problem.addConstraint(constraint.MinSumConstraint(450), [*courses])
-    # problem.addConstraint(constraint.MaxSumConstraint(470), [*courses])
+    # problem.addConstraint(constraint.MaxSumConstraint(300), [*courses])
 
     solution_iter = problem.getSolutionIter()
 
