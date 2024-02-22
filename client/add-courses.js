@@ -1,4 +1,4 @@
-const course_names = [];
+let courseNames = [];
 
 function closeModal() {
     const modal = document.getElementById("add-course-modal");
@@ -9,6 +9,8 @@ function closeModal() {
 
 const cancelButton = document.getElementsByClassName("cancel-btn")[0];
 cancelButton.addEventListener("click", function () {
+    const invalid = document.querySelector(".invalid");
+    invalid.classList.add("hidden");
     closeModal();
 });
 
@@ -16,15 +18,22 @@ const openModalBtn = document.getElementsByClassName("open-modal")[0];
 openModalBtn.addEventListener("click", function () {
     const modal = document.getElementById("add-course-modal");
     modal.classList.remove("hidden");
+    modal.getElementsByTagName("input")[0].focus()
 });
 
 const addCourseBtn = document.getElementsByClassName("add-course-btn")[0];
 addCourseBtn.addEventListener("click", function () {
     const inputField = document.querySelector("#course-field");
-
-    addCourse(inputField.value);
-    closeModal();
-
+    console.log(inputField.value);
+    if (!inputField.value.match(/\w{3}\d{3}/i)) {
+        const invalid = document.querySelector(".invalid");
+        invalid.classList.remove("hidden");
+    } else {
+        const invalid = document.querySelector(".invalid");
+        invalid.classList.add("hidden");
+        addCourse(inputField.value.toUpperCase());
+        closeModal();
+    }
 });
 
 const courseListButton = document.getElementById("courselist");
@@ -53,29 +62,57 @@ courseListButton.addEventListener("change", function (e) {
     reader.readAsText(file);
 });
 
+const courses = document.getElementById("courses");
 function addCourse(courseName) {
     const emptyPlaceholder = document.getElementById("empty-courses");
-    emptyPlaceholder.classList.add("hidden")
-    const courses = document.getElementById("courses");
-    const paragraph = document.createElement("p");
-    paragraph.innerText = courseName;
-    course_names.push(courseName);
-    courses.appendChild(paragraph);
+    emptyPlaceholder.classList.add("hidden");
+    courseNames.push(courseName);
+    // const paragraph = document.createElement("p");
+    // paragraph.innerText = courseName;
+    // const iconPath = document.createElementNS(
+    //     'http://www.w3.org/2000/svg',
+    //     './close-outline.svg'
+    //   );
+
+    // courses.appendChild(paragraph);
+    courses.innerHTML += `
+    <div class="course">
+        <div>
+            <p>${courseName}</p>
+            <svg xmlns="http://www.w3.org/2000/svg" class="delete" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"/></svg>
+        </div>
+    </div>`;
 }
 
 function displayCourses(courses) {
     const coursesNode = document.getElementById("courses");
-    coursesNode.innerHtml = ""
+    coursesNode.innerHTML = "";
+    courseNames = [];
 
     for (const course of courses) {
-        addCourse(course);   
+        addCourse(course);
     }
 }
 
+courses.addEventListener("click", function (ev) {
+    if (ev.target.classList.contains("delete")) {
+        const courseName = ev.target.previousElementSibling.textContent;
+        courseNames = courseNames.filter((item) => {
+            console.log(item);
+            return item != courseName;
+        });
+        ev.target.closest(".course").remove();
+        if (!courseNames.length) {
+            const emptyPlaceholder = document.getElementById("empty-courses");
+            emptyPlaceholder.classList.remove("hidden");
+        }
+    }
+});
+
 const nextPageButton = document.getElementById("next-page");
 nextPageButton.addEventListener("click", function (e) {
-    const encodedData = encodeURIComponent(JSON.stringify(course_names));
-    console.log(course_names);
-    console.log(encodedData)
-    window.location.href = `timetable.html?data=${encodedData}`
-})
+    const encodedData = encodeURIComponent(JSON.stringify(courseNames));
+    console.log(courseNames);
+    console.log(encodedData);
+    window.location.href = `timetable.html?data=${encodedData}`;
+});

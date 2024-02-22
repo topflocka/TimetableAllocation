@@ -62,9 +62,14 @@ main {
     align-self: flex-end;
 }
 
-.modal-content > div:first-child p {
+.modal-content > div:first-child p:first-child {
     font-size: 1.3em;
     font-weight: bold;
+}
+
+.modal-content > div:first-child p:last-child {
+    color: red;
+    font-size: 0.9em
 }
 
 .modal-content input {
@@ -77,7 +82,14 @@ main {
 .cancel-btn {
     background-color: white;
     padding: 5px 10px;
+    border: 2px solid black;
     border-radius: 15px;
+}
+
+.cancel-btn:hover {
+    background-color: lightgrey;
+    border-color: grey;
+    color: white;
 }
 
 .add-course-btn {
@@ -86,6 +98,14 @@ main {
     border: none;
     padding: 5px 10px;
     border-radius: 15px;
+}
+
+.add-course-btn:hover {
+    opacity: 0.8;
+}
+
+.add-course-btn:active {
+    opacity: 1;
 }
 
 .hidden {
@@ -119,13 +139,15 @@ main > p:first-child {
 
 .course-upload:hover, .open-modal-button:hover {
     opacity: 0.8;
+    /* background-color: #333; */
 }
 
 .course-upload:active, .open-modal-button:active {
     opacity: 1;
+    /* background-color: #222; */
 }
 
-main div:first-of-type {
+main > div:first-of-type {
     display: flex;
     gap: 10px
 }
@@ -145,11 +167,35 @@ main div:first-of-type {
     margin-bottom: 20px;
 }
 
-#courses > * {
+/* #courses > * {
     text-align: center;
-    /* width: 100%; */
-    /* align-self: center; */
     border-bottom: 1px solid grey;
+} */
+
+#courses > div {
+    display: flex;
+    border-bottom: 1px solid grey;
+    justify-content: flex-end;
+}
+
+#courses > div > div {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+}
+
+#courses svg {
+    width: 30px;
+    height: 30px;
+}
+
+#courses svg:hover {
+    border-radius: 50%;
+    background-color: lightgrey;
+}
+
+#courses svg:active {
+    background-color: transparent;
 }
 
 #empty-courses {
@@ -181,4 +227,12 @@ main div:first-of-type {
     background-color: black;
 
     border: none;
+}
+
+#next-page:hover {
+    opacity: 0.8;
+}
+
+#next-page:active {
+    opacity: 1;
 }

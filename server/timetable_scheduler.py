@@ -57,8 +57,8 @@ def get_timetable():
         for i in range(max_course_hours):
             same_course.append(course + "_" + str(i))
 
-        for i in permutations(same_course):
-            problem.addConstraint(max_consecutive_courses, [*i])
+        for perm in permutations(same_course):
+            problem.addConstraint(max_consecutive_courses, [*perm])
     
     #even distribution of courses
     def evenly_distribute_courses(*args):
