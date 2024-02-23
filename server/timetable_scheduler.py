@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify, abort
 from flask_cors import CORS 
 import json
 import constraint
-from itertools import permutations
+from itertools import permutations, cycle
 
 app = Flask(__name__)
 CORS(app)
@@ -25,10 +25,41 @@ def get_timetable():
     time_slots = range(num_days * num_time_periods) # 5 is the days of the week while 9 is the number of time slots in a day 
     problem = constraint.Problem()
 
-    courses = []
-    for course in course_names:
-        for i in range(max_course_hours):
-            courses.append(course + "_" + str(i))
+
+    # courses = []
+    # round = cycle(course_names)
+    # i = 0
+    # while i <  len(course_names) * max_course_hours:
+    #     course = next(round)
+    #     print(i)
+    #     for j in range(max_consecutive_hours):
+    #         index = j + (i // len(course_names)) 
+    #         print(f"{course}_{index}")
+    #         problem.addVariable(f"{course}_{index}", time_slots)
+    #     i += 1
+
+    # courses = []
+    # course_details = {course_name: max_consecutive_hours for course_name in course_names}   
+    # round = cycle(course_names)
+    # i = 0         
+    # while i <  len(course_names):
+    #     course = next(round)
+    #     t = min(course_details[course], max_consecutive_hours)
+    #     print(i)
+    #     for j in range(t):
+    #         index = j + max_consecutive_hours * (i // len(course_names)) 
+    #         print(f"{course}_{index}")
+    #         courses.append(f"{course}_{index}")
+    #         problem.addVariable(f"{course}_{index}", time_slots)
+    #     course_details[course] -= t
+    #     i += 1
+
+    courses = ["CSC422_0", "CSC422_1", "CSC427_0", "CSC427_1", "CSC426_0", "CSC426_1", "CSC421_0", "CSC421_1", "CSC424_0", "CSC424_1", "CSC428_0", "CSC428_1",
+               "CSC422_2", "CSC427_2", "CSC426_2", "CSC421_2", "CSC424_2", "CSC428_2"]
+        
+    # for course in course_names:
+    #     for i in range(max_course_hours):
+    #         courses.append(course + "_" + str(i))
             # problem.addVariable(course + "_" + str(i), time_slots)
     
     # ensures an even distribution of courses in a week by using round robin
@@ -68,16 +99,16 @@ def get_timetable():
     # problem.addVariables([*courses], range(num_days * num_time_periods))
     
     # breaks = []
-    # for i in range(len(time_slots) - len(courses)):  # One less break than the number of courses
+    # for i in range(len(time_slots) - len(courses) - 5):  # One less break than the number of courses
     #     breaks.append("break" + "_" + str(i))
-    #     # problem.addVariable('break' + "_" + str(i), time_slots)
+    #     problem.addVariable('break' + "_" + str(i), time_slots)
 
     #no two courses can clash constraint
     # problem.addConstraint(constraint.AllDifferentConstraint(), [*courses, *breaks])
-    problem.addConstraint(constraint.AllDifferentConstraint(), [*courses])
+    problem.addConstraint(constraint.AllDifferentConstraint(), [*courses, *breaks])
 
     #no course can occur during break time 
-    problem.addConstraint(constraint.NotInSetConstraint([break_period + num_time_periods * i for i in range(num_days)]), [*courses])
+    problem.addConstraint(constraint.NotInSetConstraint([break_period + num_time_periods * i for i in range(num_days)]), [*courses, *breaks])
 
     # a course can only hold at most twice consecutively
     # max_consecutive_courses = lambda *args: args[0] + 2 != args[2]
