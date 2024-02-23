@@ -31,6 +31,13 @@ body {
     font-size: 1.6em;
 }
 
+.placeholder {
+    border: none; /* Remove borders */
+    padding: 0; /* Remove padding */
+    width: 0; /* Set width to 0 */
+    height: 0; /* Set height to 0 */
+  }
+
 table {
     border-collapse: collapse;
 }

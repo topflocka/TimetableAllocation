@@ -63,6 +63,7 @@
 
 const params = new URLSearchParams(window.location.search);
 const encodedData = params.get("data");
+const breakPeriod = 6;
 
 fetch(`http://127.0.0.1:5000/get-timetable?data=${encodedData}`)
     .then((response) => {
@@ -76,7 +77,9 @@ fetch(`http://127.0.0.1:5000/get-timetable?data=${encodedData}`)
                     document.getElementsByTagName("tbody")[0].children[
                         4 + schedule[0]
                     ];
-                const day = dayRow.children[1 + schedule[1]];
+                const day = dayRow.children[1 + ((schedule[1] >= breakPeriod && schedule[0] != 0) ? schedule[1] - 1 : schedule[1])];
+                console.log(dayRow);
+                console.log(1 + schedule[1]);
                 day.textContent = courseName;
 
             }

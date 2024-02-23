@@ -39,7 +39,7 @@ addCourseBtn.addEventListener("click", function () {
 const courseListButton = document.getElementById("courselist");
 courseListButton.addEventListener("change", function (e) {
     // Get the selected file
-    const file = event.target.files[0];
+    const file = e.target.files[0];
 
     // Create a new FileReader object
     const reader = new FileReader();
