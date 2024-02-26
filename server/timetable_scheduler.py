@@ -97,4 +97,4 @@ def get_timetable():
     print(solution)
     return jsonify(timetable)
 
-app.run(debug=True)
+app.run()
