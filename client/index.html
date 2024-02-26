@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="add-courses.css" />
+        <link rel="icon" type="image/png" sizes="48x48"  href="/image/android-icon-48x48.png">
+        <link rel="icon" type="image/x-icon" href="/image/favicon.ico">
+        <title>Timetable  Allocation System</title>
+    </head>
+    <body>
+        <div class="nav">
+            <p>Timetable Allocation System</p>
+        </div>
+        <main>
+            <p>Add the courses to be added in the timetable</p>
+            <div>
+                <label class="course-upload button" for="courselist">
+                    <input id="courselist" type="file" />
+                    Load from File
+                </label>
+                <!-- <button class="load-from-excel">Load from Excel</button> -->
+                <button class="open-modal open-modal-button">Add course</button>
+            </div>
+
+            <div id="add-course-modal" class="modal hidden">
+                <div class="modal-content">
+                    <div>
+                        <p>Add course</p>
+                        <input id="course-field" />
+                        <p class="hidden invalid">Invalid course code</p>
+                    </div>
+                    <div>
+                        <button class="cancel-btn">Cancel</button>
+                        <button class="add-course-btn">Add Course</button>
+                    </div>
+                </div>
+            </div>
+
+            <p id="empty-courses">No courses added</p>
+            <div id="courses"></div>
+            <button id="next-page">Next</button>
+        </main>
+        <script src="add-courses.js"></script>
+    </body>
+</html>

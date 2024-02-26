@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="timetable.css">
+    </head>
+    <body>
+        <div class="nav">
+            <p>Timetable Allocation System</p>
+        </div>
+        <table border="1">
+            <colgroup>
+                <col style="background-color: lightgrey;"/>
+            </colgroup>
+            <tr style="background-color: lightgray;">
+                <th rowspan="4" class="vertical-text" class="days">Day</th>
+            </tr>
+            <tr style="background-color: lightgray;">
+                <th colspan="10">Duration</th>
+            </tr>
+            <tr style="background-color: lightgray;">
+                <th colspan="4">A.M</th>
+                <th colspan="5">P.M</th>
+            </tr>
+            <tr class="days" style="background-color: lightgray;">
+                <th>8 - 9</th>
+                <th>9 - 10</th>
+                <th>10 - 11</th>
+                <th>11 - 12</th>
+                <th>12 - 1</th>
+                <th>1 - 2</th>
+                <th class="vertical-text header-break">2 - 2.30</th>
+                <th>2.30 - 3.30</th>
+                <th>3.30 - 4.30</th>
+            </tr>
+            <tr>
+                <td>MON</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td rowspan="5" class="vertical-text break bold">BREAK PERIOD</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>TUE</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>WED</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>THUR</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>FRI</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            <!-- Add more rows as needed -->
+        </table>
+    </body>
+    <!--9*5-->
+    <!-- <script src="csp-solver.js" type="module" ></script> -->
+    <!-- <script data-main="timetable.js" type="text/javascript" src="../lib/require.js"></script> -->
+    <!-- <script src="csp.js"></script> -->
+    <script src="timetable.js" type="module"></script>
+</html>
