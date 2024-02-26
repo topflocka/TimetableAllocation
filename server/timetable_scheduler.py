@@ -3,10 +3,35 @@ from flask import Flask, request, jsonify, abort
 from flask_cors import CORS 
 import json
 import constraint
-from itertools import permutations, cycle
+from itertools import permutations, cycle, repeat
+import random 
 
 app = Flask(__name__)
 CORS(app)
+
+def break_or_next_course_constraint(course1, course2, break_period):
+    # Ensure that a break or next course is inserted after at most 2 consecutive times for a course
+    return (course1 + 2 == break_period) or (course1 + 1 == course2)
+
+def breakk(course, *breaks):
+    print(course, breaks)
+    return course + 1 in breaks
+
+def evenly_distribute_courses(num_day, num_courses):
+    problem = constraint.Problem()
+    variables = range(num_day)
+    problem.addVariables(variables, range(0, num_courses))
+
+    problem.addConstraint(constraint.ExactSumConstraint(num_courses), variables)
+
+    def evenly_distribute_courses(*args):
+        tolerance = 1  # You may adjust this tolerance value as needed
+        min_count = min(args)
+        max_count = max(args)
+        return max_count - min_count <= tolerance
+    problem.addConstraint(evenly_distribute_courses, variables)
+    
+    return problem.getSolution().values()
 
 @app.route("/get-timetable")
 def get_timetable():
@@ -25,147 +50,51 @@ def get_timetable():
     time_slots = range(num_days * num_time_periods) # 5 is the days of the week while 9 is the number of time slots in a day 
     problem = constraint.Problem()
 
-
-    # courses = []
-    # round = cycle(course_names)
-    # i = 0
-    # while i <  len(course_names) * max_course_hours:
-    #     course = next(round)
-    #     print(i)
-    #     for j in range(max_consecutive_hours):
-    #         index = j + (i // len(course_names)) 
-    #         print(f"{course}_{index}")
-    #         problem.addVariable(f"{course}_{index}", time_slots)
-    #     i += 1
-
-    # courses = []
-    # course_details = {course_name: max_consecutive_hours for course_name in course_names}   
-    # round = cycle(course_names)
-    # i = 0         
-    # while i <  len(course_names):
-    #     course = next(round)
-    #     t = min(course_details[course], max_consecutive_hours)
-    #     print(i)
-    #     for j in range(t):
-    #         index = j + max_consecutive_hours * (i // len(course_names)) 
-    #         print(f"{course}_{index}")
-    #         courses.append(f"{course}_{index}")
-    #         problem.addVariable(f"{course}_{index}", time_slots)
-    #     course_details[course] -= t
-    #     i += 1
-
-    courses = ["CSC422_0", "CSC422_1", "CSC427_0", "CSC427_1", "CSC426_0", "CSC426_1", "CSC421_0", "CSC421_1", "CSC424_0", "CSC424_1", "CSC428_0", "CSC428_1",
-               "CSC422_2", "CSC427_2", "CSC426_2", "CSC421_2", "CSC424_2", "CSC428_2"]
-        
-    # for course in course_names:
-    #     for i in range(max_course_hours):
-    #         courses.append(course + "_" + str(i))
-            # problem.addVariable(course + "_" + str(i), time_slots)
+    courses = []
     
-    # ensures an even distribution of courses in a week by using round robin
-    # nd is the number of courses that should each day
-    # ND = len(courses) // num_days + 1
-    # for i in range(num_days):
-    #     print(courses[i*ND:i*ND+ND])
-    #     problem.addVariables(courses[i*ND:i*ND+ND], 
-    #                          range(i*num_time_periods + num_time_periods - 1, i*num_time_periods - 1, -1))
-    # print(courses[num_days*ND:])
-    # Ensure even distribution of courses across the week using round-robin scheduling
-    # courses_per_day = len(courseNames) // num_days + 1
-    # for i in range(num_days):
-    #     day_courses = courseNames[i * courses_per_day : (i + 1) * courses_per_day]
-    #     for course in day_courses:
-    #         for j in range(max_course_hours):
-    #             course_variable = f"{course}_{j}"
-    #             # Assign time slots for each course in a round-robin manner
-    #             problem.addConstraint(constraint.NotInSetConstraint([i * num_time_periods + j for i in range(num_days)]), [course_variable])
-    # courses_per_day = (len(course_names) * max_course_hours) // num_days + 1
-    # for i in range(num_days):
-    #     day_courses = course_names[i * courses_per_day : (i + 1) * courses_per_day]
-    #     for course in day_courses:
-    #         for j in range(max_course_hours):
-    #             course_variable = f"{course}_{j}"
-    #             problem.addVariable(course_variable, 
-    #                          range(i*num_time_periods + num_time_periods - 1, i*num_time_periods - 1, -1))
-                # Assign time slots for each course in a round-robin manner
-                # problem.addConstraint(constraint.NotInSetConstraint([i * num_time_periods + j for i in range(num_days)]), [course_variable])
+    reverse_array = lambda x, cond: x[::-1] if cond else x    
+    
+    for i, c in enumerate(repeat(course_names, max_course_hours // max_consecutive_hours + 1)):
+        offset = i * max_consecutive_hours
+        for j, course in enumerate(reverse_array(c, i % 2)):
+            for k in range(min(max_consecutive_hours, max_course_hours - offset)):
+                courses.insert(j * 2, course + "_" + str(k + offset))
 
+    # ensures an even distribution of courses in a week using round robin scheduling 
     ND = len(courses) // num_days + 1
+    CD = evenly_distribute_courses(num_days, len(courses)) #CD is the how the courses should distribute across the week
+    CD = list(CD)
+    j = 0
     for i in range(num_days):
-        print(courses[i*ND:i*ND+ND])
-        problem.addVariables(courses[i*ND:i*ND+ND], 
+        problem.addVariables(courses[j:j+CD[i]], 
                              range(i*num_time_periods + num_time_periods - 1, i*num_time_periods - 1, -1))
+        j += CD[i]
 
     # problem.addVariables([*courses], range(num_days * num_time_periods))
-    
-    # breaks = []
-    # for i in range(len(time_slots) - len(courses) - 5):  # One less break than the number of courses
-    #     breaks.append("break" + "_" + str(i))
-    #     problem.addVariable('break' + "_" + str(i), time_slots)
 
     #no two courses can clash constraint
     # problem.addConstraint(constraint.AllDifferentConstraint(), [*courses, *breaks])
-    problem.addConstraint(constraint.AllDifferentConstraint(), [*courses, *breaks])
+    problem.addConstraint(constraint.AllDifferentConstraint(), [*courses])
 
     #no course can occur during break time 
-    problem.addConstraint(constraint.NotInSetConstraint([break_period + num_time_periods * i for i in range(num_days)]), [*courses, *breaks])
+    problem.addConstraint(constraint.NotInSetConstraint([break_period + num_time_periods * i for i in range(num_days)]), [*courses])
 
-    # a course can only hold at most twice consecutively
-    # max_consecutive_courses = lambda *args: args[0] + 2 != args[2]
-    # for course in courseNames:
-    #     same_course = []
-    #     for i in range(max_course_hours):
-    #         same_course.append(course + "_" + str(i))
-
-    #     for perm in permutations(same_course):
-    #         problem.addConstraint(max_consecutive_courses, [*perm])
+    # problem.addConstraint(constraint.MinSumConstraint(400), [*courses])
+    # for course in courses:
+    #     # problem.addConstraint(lambda course, *breaks: course+1 in breaks, [course, *breaks])
+    #     problem.addConstraint(breakk, [course, *breaks])
     
-    #even distribution of courses
-    def evenly_distribute_courses(*args):
-        bins = {i: 0 for i in range(num_days)}
-
-        for course_slot in args:
-            bins[course_slot // num_time_periods] += 1
-
-        # print(bins)
-            # Check if the difference in counts between days is within a tolerance
-        tolerance = 1  # You may adjust this tolerance value as needed
-        min_count = min(bins.values())
-        max_count = max(bins.values())
-        print(max_count)
-        print(min_count)
-        return max_count - min_count <= tolerance
-    
-    # problem.addConstraint(evenly_distribute_courses, [*courses])
-    # problem.addConstraint(constraint.MaxSumConstraint(180), [*courses])
-
-    # def test(*args):
-    #     print(sum(args))
-    #     return True
-    # problem.addConstraint(test, [*courses])
-
-    # courses_per_day = len(courses) // num_time_periods
-
-    # problem.addConstraint(constraint.MinSumConstraint(450), [*courses])
-    # problem.addConstraint(constraint.MaxSumConstraint(300), [*courses])
-
     solution_iter = problem.getSolutionIter()
 
     timetable = {}
     solution = next(solution_iter)
-    print("solution")
-    # print(solution)
     for course in solution: 
         courseName = course[:course.find("_")]
-
-        # if courseName == "break":
-        #     continue 
 
         if courseName not in timetable:
             timetable[courseName] = []
         timetable[courseName].append([solution[course] // num_time_periods, solution[course] % num_time_periods])
     print(solution)
-    print('yes')
     return jsonify(timetable)
 
 app.run(debug=True)

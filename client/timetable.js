@@ -78,8 +78,6 @@ fetch(`http://127.0.0.1:5000/get-timetable?data=${encodedData}`)
                         4 + schedule[0]
                     ];
                 const day = dayRow.children[1 + ((schedule[1] >= breakPeriod && schedule[0] != 0) ? schedule[1] - 1 : schedule[1])];
-                console.log(dayRow);
-                console.log(1 + schedule[1]);
                 day.textContent = courseName;
 
             }
