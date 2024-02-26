@@ -112,5 +112,5 @@ nextPageButton.addEventListener("click", function (e) {
     const encodedData = encodeURIComponent(JSON.stringify(courseNames));
     console.log(courseNames);
     console.log(encodedData);
-    window.location.href = `timetable.html?data=${encodedData}`;
+    window.location.href = `//timetable.html?data=${encodedData}`;
 });
