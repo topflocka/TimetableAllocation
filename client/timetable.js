@@ -65,7 +65,7 @@ const params = new URLSearchParams(window.location.search);
 const encodedData = params.get("data");
 const breakPeriod = 6;
 
-fetch(`http://127.0.0.1:5000/get-timetable?data=${encodedData}`)
+fetch(`/api/get-timetable?data=${encodedData}`)
     .then((response) => {
         return response.json();
     })
