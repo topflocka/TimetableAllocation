@@ -98,7 +98,16 @@ def get_timetable():
             timetable[courseName] = []
         timetable[courseName].append([solution[course] // num_time_periods, solution[course] % num_time_periods])
     print(solution)
-    return jsonify(timetable)
+    return jsonify({"status": "success", "message": "timetable successfully generated", "data": timetable})
+
+@app.errorhandler(Exception)
+def handle_exception(error):
+    # Log the exception
+    app.logger.error(f'An error occurred: {str(error)}')
+
+    # Return a JSON response with error message
+    return jsonify({"status": "error", 'message': 'Internal Server Error'}), 500
+
 
 # app.run()
 app.run(host='0.0.0.0', port=port)
