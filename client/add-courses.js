@@ -129,7 +129,5 @@ courses.addEventListener("click", function (ev) {
 const nextPageButton = document.getElementById("next-page");
 nextPageButton.addEventListener("click", function (e) {
     const encodedData = encodeURIComponent(JSON.stringify(courseNames));
-    console.log(courseNames);
-    console.log(encodedData);
     window.location.href = `/client/timetable.html?data=${encodedData}`;
 });

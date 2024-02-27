@@ -11,8 +11,9 @@ fetch(`http://127.0.0.1:5000/get-timetable?data=${encodedData}`)
         return response.json();
     })
     .then((data) => {
+        console.log(data);
         hideSpinner();
-        for (const [courseName, schedules] of Object.entries(data)) {
+        for (const [courseName, schedules] of Object.entries(data.data)) {
             for (const schedule of schedules) {
                 const dayRow =
                     document.getElementsByTagName("tbody")[0].children[
