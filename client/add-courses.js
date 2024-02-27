@@ -52,7 +52,7 @@ courseListButton.addEventListener("change", function (e) {
         try{
             const json = JSON.parse(event.target.result);
             console.log("Parsed JSON:", json);
-
+            courseListButton.value = "";
             displayCourses(json);
             // Do something with the parsed JSON data
         } catch (error) {
@@ -71,15 +71,15 @@ function resetFileInput() {
     fileInput.value = ''; // Reset the value to clear selected file
 }
 
-window.addEventListener('load', resetFileInput);
+// window.addEventListener('load', resetFileInput);
 
-window.addEventListener('pageshow', function(event) {
-    // Check if the page is being shown after navigating back
-    if (event.persisted) {
-        console.log("misbehave")
-        resetFileInput();
-    }
-});
+// window.addEventListener('pageshow', function(event) {
+//     // Check if the page is being shown after navigating back
+//     if (event.persisted) {
+//         console.log("misbehave")
+//         resetFileInput();
+//     }
+// });
 
 const courses = document.getElementById("courses");
 function addCourse(courseName) {

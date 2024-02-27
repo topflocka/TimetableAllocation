@@ -5,6 +5,7 @@ import json
 import constraint
 from itertools import permutations, cycle, repeat
 import random 
+import time 
 
 app = Flask(__name__)
 CORS(app)
@@ -41,6 +42,7 @@ def get_timetable():
         course_names = json.loads(courses_data)
     else: 
         abort(400, "Bad request") 
+    time.sleep(2)
     
     num_days = 5
     num_time_periods = 9

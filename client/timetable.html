@@ -3,12 +3,17 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <link rel="icon" type="image/png" sizes="48x48"  href="/image/android-icon-48x48.png">
+        <link rel="icon" type="image/x-icon" href="/image/favicon.ico">
+        <title>Timetable  Allocation System</title>
         <link rel="stylesheet" href="timetable.css">
     </head>
     <body>
         <div class="nav">
             <p>Timetable Allocation System</p>
+        </div>
+        <div class="spinner-backdrop">
+            <div id="spinner" class="spinner"></div>
         </div>
         <table border="1">
             <colgroup>
@@ -70,7 +75,7 @@
                 <td></td>
             </tr>
             <tr>
-                <td>THUR</td>
+                <td>THU</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -94,6 +99,9 @@
 
             <!-- Add more rows as needed -->
         </table>
+        <div class="error hidden">
+            Unable to generate timeable. Check the courses you specified in the previous page
+        </div>
     </body>
     <!--9*5-->
     <!-- <script src="csp-solver.js" type="module" ></script> -->
