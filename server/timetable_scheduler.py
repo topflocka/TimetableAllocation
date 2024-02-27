@@ -3,11 +3,14 @@ from flask import Flask, request, jsonify, abort
 from flask_cors import CORS 
 import json
 import constraint
+import os
 from itertools import permutations, cycle, repeat
 import random 
 
 app = Flask(__name__)
 CORS(app)
+
+port = int(os.environ.get('PORT', 5000))
 
 def break_or_next_course_constraint(course1, course2, break_period):
     # Ensure that a break or next course is inserted after at most 2 consecutive times for a course
@@ -97,4 +100,5 @@ def get_timetable():
     print(solution)
     return jsonify(timetable)
 
-app.run()
+# app.run()
+app.run(host='0.0.0.0', port=port)
