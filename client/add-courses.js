@@ -24,22 +24,24 @@ openModalBtn.addEventListener("click", function () {
 const addCourseBtn = document.getElementsByClassName("add-course-btn")[0];
 addCourseBtn.addEventListener("click", function () {
     const inputField = document.querySelector("#course-field");
-    console.log(inputField.value);
-    if (!inputField.value.match(/\w{3}\d{3}/i)) {
-        const invalid = document.querySelector(".invalid");
-        invalid.classList.remove("hidden");
-    } else {
+    const match = inputField.value.match(/\w{3}\d{3}/i);
+    if (match == inputField.value) {
         const invalid = document.querySelector(".invalid");
         invalid.classList.add("hidden");
         addCourse(inputField.value.toUpperCase());
         closeModal();
+    } else {
+        const invalid = document.querySelector(".invalid");
+        invalid.classList.remove("hidden");
     }
 });
 
 const courseListButton = document.getElementById("courselist");
+console.log(courseListButton.value);
 courseListButton.addEventListener("change", function (e) {
     // Get the selected file
     const file = e.target.files[0];
+    if (!file) return;
 
     // Create a new FileReader object
     const reader = new FileReader();
@@ -47,7 +49,7 @@ courseListButton.addEventListener("change", function (e) {
     // Define the onload event handler
     reader.onload = function (event) {
         // Parse the file contents as JSON
-        try {
+        try{
             const json = JSON.parse(event.target.result);
             console.log("Parsed JSON:", json);
 
@@ -60,6 +62,23 @@ courseListButton.addEventListener("change", function (e) {
 
     // Read the file as text
     reader.readAsText(file);
+});
+
+
+// Function to reset file input field
+function resetFileInput() {
+    const fileInput = courseListButton;
+    fileInput.value = ''; // Reset the value to clear selected file
+}
+
+window.addEventListener('load', resetFileInput);
+
+window.addEventListener('pageshow', function(event) {
+    // Check if the page is being shown after navigating back
+    if (event.persisted) {
+        console.log("misbehave")
+        resetFileInput();
+    }
 });
 
 const courses = document.getElementById("courses");
