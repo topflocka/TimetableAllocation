@@ -54,6 +54,7 @@ def get_timetable():
     
     reverse_array = lambda x, cond: x[::-1] if cond else x    
     
+    # this code inserts courses in a way that allows the same course to occur multiple times in the same day limited by their max consecutive hours
     for i, c in enumerate(repeat(course_names, max_course_hours // max_consecutive_hours + 1)):
         offset = i * max_consecutive_hours
         for j, course in enumerate(reverse_array(c, i % 2)):
