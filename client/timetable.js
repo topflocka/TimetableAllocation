@@ -12,6 +12,7 @@ fetch(`http://127.0.0.1:5000/get-timetable?data=${encodedData}`)
     })
     .then((data) => {
         console.log(data);
+        console.log("yes");
         hideSpinner();
         for (const [courseName, schedules] of Object.entries(data.data)) {
             for (const schedule of schedules) {
@@ -25,6 +26,8 @@ fetch(`http://127.0.0.1:5000/get-timetable?data=${encodedData}`)
             }
         }
     }).catch((error) => {
+        console.log(error);
+        console.log("how");
 		// console.log(error)
         hideSpinner();
         document.getElementsByClassName("error")[0].classList.remove("hidden");

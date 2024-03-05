@@ -26,7 +26,7 @@ def get_timetable():
     max_course_hours = 3
     break_period = 6
     time_slots = range(num_days * num_time_periods) # 5 is the days of the week while 9 is the number of time slots in a day 
-    problem = constraint.Problem(constraint.MinConflictsSolver())
+    problem = constraint.Problem()
 
     courses = []
     for course in courseNames:
@@ -72,7 +72,7 @@ def get_timetable():
         print(min_count)
         return max_count - min_count <= tolerance
     
-    problem.addConstraint(evenly_distribute_courses, [*courses])
+    # problem.addConstraint(evenly_distribute_courses, [*courses])
     # problem.addConstraint(constraint.MaxSumConstraint(180), [*courses])
 
     # def test(*args):
@@ -85,13 +85,10 @@ def get_timetable():
     # problem.addConstraint(constraint.MinSumConstraint(450), [*courses])
     # problem.addConstraint(constraint.MaxSumConstraint(470), [*courses])
 
-    # solution_iter = problem.getSolutionIter()
-    # solver = constraint.MinConflictsSolver()
+    solution_iter = problem.getSolutionIter()
 
     timetable = {}
-    # solution = solver.min_conflicts(problem)
-    solution = problem.getSolution()
-    # solution = next(solution_iter)
+    solution = next(solution_iter)
     print("solution")
     # print(solution)
     for course in solution: 
@@ -104,6 +101,7 @@ def get_timetable():
             timetable[courseName] = []
         timetable[courseName].append([solution[course] // num_time_periods, solution[course] % num_time_periods])
     print(solution)
-    return jsonify({"status": "success", "message": "timetable successfully generated", "data": timetable})
+    return jsonify(timetable)
+
 
 app.run(debug=True)
