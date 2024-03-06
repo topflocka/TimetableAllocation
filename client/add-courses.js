@@ -1,5 +1,7 @@
 let courseNames = [];
 
+fetch("/api")
+
 function closeModal() {
     const modal = document.getElementById("add-course-modal");
     modal.classList.add("hidden");

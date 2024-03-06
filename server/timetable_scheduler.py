@@ -3,7 +3,10 @@ from flask import Flask, request, jsonify, abort
 from flask_cors import CORS 
 import json
 import constraint
+import os
 from itertools import permutations
+
+port = int(os.environ.get('PORT', 5000))
 
 app = Flask(__name__)
 CORS(app)
@@ -83,4 +86,4 @@ def handle_exception(error):
     # Return a JSON response with error message
     return jsonify({"status": "error", 'message': 'Internal Server Error'}), 500
 
-app.run(debug=True)
+app.run(host='0.0.0.0', port=port)

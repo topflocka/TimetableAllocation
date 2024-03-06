@@ -24,7 +24,7 @@ function resetTimetable() {
 function generateTimetable() {
     resetTimetable();
 
-    fetch(`http://127.0.0.1:5000/get-timetable?data=${encodedData}`)
+    fetch(`/api/get-timetable?data=${encodedData}`)
         .then((response) => {
             return response.json();
         })
