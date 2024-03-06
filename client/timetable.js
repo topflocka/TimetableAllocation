@@ -11,6 +11,12 @@ function hideSpinner() {
         .classList.add("hidden");
 }
 
+function showSpinner() {
+    document
+        .getElementsByClassName("spinner-backdrop")[0]
+        .classList.remove("hidden");
+}
+
 const regenerateButton = document.getElementById("regenerate");
 regenerateButton.addEventListener("click", (ev) => {
     generateTimetable();
@@ -23,6 +29,7 @@ function resetTimetable() {
 
 function generateTimetable() {
     resetTimetable();
+    showSpinner();
 
     fetch(`/api/get-timetable?data=${encodedData}`)
         .then((response) => {
