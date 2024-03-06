@@ -24,7 +24,7 @@ openModalBtn.addEventListener("click", function () {
 const addCourseBtn = document.getElementsByClassName("add-course-btn")[0];
 addCourseBtn.addEventListener("click", function () {
     const inputField = document.querySelector("#course-field");
-    const match = inputField.value.match(/\w{3}\d{3}/i);
+    const match = inputField.value.match(/[a-zA-Z]{3}\d{3}/i);
     if (match == inputField.value) {
         const invalid = document.querySelector(".invalid");
         invalid.classList.add("hidden");
@@ -64,36 +64,17 @@ courseListButton.addEventListener("change", function (e) {
     reader.readAsText(file);
 });
 
-
 // Function to reset file input field
 function resetFileInput() {
     const fileInput = courseListButton;
     fileInput.value = ''; // Reset the value to clear selected file
 }
 
-// window.addEventListener('load', resetFileInput);
-
-// window.addEventListener('pageshow', function(event) {
-//     // Check if the page is being shown after navigating back
-//     if (event.persisted) {
-//         console.log("misbehave")
-//         resetFileInput();
-//     }
-// });
-
 const courses = document.getElementById("courses");
 function addCourse(courseName) {
     const emptyPlaceholder = document.getElementById("empty-courses");
     emptyPlaceholder.classList.add("hidden");
     courseNames.push(courseName);
-    // const paragraph = document.createElement("p");
-    // paragraph.innerText = courseName;
-    // const iconPath = document.createElementNS(
-    //     'http://www.w3.org/2000/svg',
-    //     './close-outline.svg'
-    //   );
-
-    // courses.appendChild(paragraph);
     courses.innerHTML += `
     <div class="course">
             <p>${courseName}</p>
@@ -115,7 +96,6 @@ courses.addEventListener("click", function (ev) {
     if (ev.target.classList.contains("delete")) {
         const courseName = ev.target.previousElementSibling.textContent;
         courseNames = courseNames.filter((item) => {
-            console.log(item);
             return item != courseName;
         });
         ev.target.closest(".course").remove();
