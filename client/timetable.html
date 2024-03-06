@@ -3,104 +3,118 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" type="image/png" sizes="48x48"  href="/image/android-icon-48x48.png">
-        <link rel="icon" type="image/x-icon" href="/image/favicon.ico">
-        <title>Timetable  Allocation System</title>
-        <link rel="stylesheet" href="timetable.css">
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="48x48"
+            href="/image/android-icon-48x48.png"
+        />
+        <link rel="icon" type="image/x-icon" href="/image/favicon.ico" />
+        <title>Timetable Allocation System</title>
+        <link rel="stylesheet" href="timetable.css" />
     </head>
     <body>
         <div class="nav">
             <p>Timetable Allocation System</p>
         </div>
-        <div class="spinner-backdrop">
-            <div id="spinner" class="spinner"></div>
-        </div>
-        <table border="1">
-            <colgroup>
-                <col style="background-color: lightgrey;"/>
-            </colgroup>
-            <tr style="background-color: lightgray;">
-                <th rowspan="4" class="vertical-text" class="days">Day</th>
-            </tr>
-            <tr style="background-color: lightgray;">
-                <th colspan="10">Duration</th>
-            </tr>
-            <tr style="background-color: lightgray;">
-                <th colspan="4">A.M</th>
-                <th colspan="5">P.M</th>
-            </tr>
-            <tr class="days" style="background-color: lightgray;">
-                <th>8 - 9</th>
-                <th>9 - 10</th>
-                <th>10 - 11</th>
-                <th>11 - 12</th>
-                <th>12 - 1</th>
-                <th>1 - 2</th>
-                <th class="vertical-text header-break">2 - 2.30</th>
-                <th>2.30 - 3.30</th>
-                <th>3.30 - 4.30</th>
-            </tr>
-            <tr>
-                <td>MON</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td rowspan="5" class="vertical-text break bold">BREAK PERIOD</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>TUE</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>WED</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>THU</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>FRI</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+        <div class="container">
+            <div class="spinner-backdrop">
+                <div id="spinner" class="spinner"></div>
+            </div>
+            <table border="1" id="table">
+                <colgroup>
+                    <col style="background-color: lightgrey" />
+                </colgroup>
+                <tr style="background-color: lightgray">
+                    <th rowspan="4" class="vertical-text" class="days">Day</th>
+                </tr>
+                <tr style="background-color: lightgray">
+                    <th colspan="10">Duration</th>
+                </tr>
+                <tr style="background-color: lightgray">
+                    <th colspan="4">A.M</th>
+                    <th colspan="5">P.M</th>
+                </tr>
+                <tr class="days" style="background-color: lightgray">
+                    <th>8 - 9</th>
+                    <th>9 - 10</th>
+                    <th>10 - 11</th>
+                    <th>11 - 12</th>
+                    <th>12 - 1</th>
+                    <th>1 - 2</th>
+                    <th class="vertical-text header-break">2 - 2.30</th>
+                    <th>2.30 - 3.30</th>
+                    <th>3.30 - 4.30</th>
+                </tr>
+                <tr>
+                    <td>MON</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td rowspan="5" class="vertical-text break bold">
+                        BREAK PERIOD
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>TUE</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>WED</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>THU</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>FRI</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
 
-            <!-- Add more rows as needed -->
-        </table>
-        <div class="error hidden">
-            Unable to generate timeable. Check the courses you specified in the previous page
+                <!-- Add more rows as needed -->
+            </table>
+            <div class="control-buttons">
+                <button id="regenerate" class="btn">Regenerate</button>
+                <button class="btn">Export as .xlsx</button>
+            </div>
+            <div class="error hidden">
+                Unable to generate timeable. Check the courses you specified in
+                the previous page
+            </div>
         </div>
     </body>
     <!--9*5-->
