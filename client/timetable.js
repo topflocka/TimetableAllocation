@@ -31,6 +31,7 @@ function generateTimetable() {
         .then((data) => {
             console.log(data);
             hideSpinner();
+            document.getElementsByClassName("error")[0].classList.add("hidden");
             for (const [courseName, schedules] of Object.entries(data.data)) {
                 for (const schedule of schedules) {
                     const dayRow =

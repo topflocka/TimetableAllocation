@@ -121,13 +121,14 @@ td {
 
 .error {
     color: red;
+    text-align: center;
 }
 
 .control-buttons {
     display: flex;
     justify-content: center;
     margin-top: 15px;
-    gap: 15px
+    gap: 15px;
 }
 
 .btn {
@@ -153,7 +154,6 @@ td {
         font-size: 14px;
         align-items: flex-start;
     }
-
 
     table {
         width: 600px;
